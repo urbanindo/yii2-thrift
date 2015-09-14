@@ -1,0 +1,21 @@
+{
+    "name": "urbanindo/yii2-thrift",
+    "description": "Thrift server application using Yii2",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Petra Barus",
+            "email": "petra.barus@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "apache/thrift": "0.9.2",
+        "yiisoft/yii2": "~2.0@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "UrbanIndo\\Yii2\\Thrift\\": "src/"
+        }
+    }
+}
