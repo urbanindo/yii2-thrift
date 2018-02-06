@@ -1,4 +1,8 @@
 <?php
+/**
+ * Response class file.
+ * @since 2015.09.14
+ */
 
 namespace UrbanIndo\Yii2\Thrift;
 

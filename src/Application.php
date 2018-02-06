@@ -1,19 +1,26 @@
 <?php
+/**
+ * Application class file.
+ *
+ * @author Najih Azkalhaq <najih@urbanindo.com>
+ * @since 2015.09.14
+ */
 
 namespace UrbanIndo\Yii2\Thrift;
 
 /**
  * Application is the base class of Thrift application.
- * 
  * @author Petra Barus <petra.barus@gmail.com>
  */
-class Application extends \yii\web\Application {
+class Application extends \yii\web\Application
+{
     
     /**
-     * @param Request $request
+     * @param Request $request Request.
      * @return Response
      */
-    public function handleRequest($request) {
+    public function handleRequest($request)
+    {
         $processor = $request->resolveService();
         $response = $this->getResponse();
         $response->setProcessor($processor);
@@ -22,6 +29,7 @@ class Application extends \yii\web\Application {
     
     /**
      * @inheritdoc
+     * @return mixed
      */
     public function coreComponents()
     {
@@ -33,5 +41,5 @@ class Application extends \yii\web\Application {
             'errorHandler' => ['class' => 'yii\web\ErrorHandler'],
             'thrift' => ['class' => 'UrbanIndo\Yii2\Thrift\Thrift']
         ]);
-    }   
+    }
 }
