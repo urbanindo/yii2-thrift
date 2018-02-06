@@ -2,7 +2,6 @@
 /**
  * Application class file.
  *
- * @author Najih Azkalhaq <najih@urbanindo.com>
  * @since 2015.09.14
  */
 
