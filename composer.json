@@ -1,7 +1,7 @@
 {
     "name": "urbanindo/yii2-thrift",
     "description": "Thrift server application using Yii2",
-    "license": "GPL",
+    "license": "MIT",
     "authors": [
         {
             "name": "Petra Barus",
