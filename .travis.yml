@@ -1,0 +1,21 @@
+###############################################################################
+# Travis Build
+#
+# Author: Najih <najih@urbanindo.com>
+###############################################################################
+language: php
+
+branches:
+    only:
+        - master
+
+php:
+    - 7.0
+
+install:
+    - travis_retry composer self-update && composer --version
+    - travis_retry composer install --prefer-dist --no-interaction
+
+script:
+    - ./vendor/bin/phpcs --standard=ruleset.xml src/
+    - ./vendor/bin/phpunit --bootstrap tests/bootstrap.php tests
