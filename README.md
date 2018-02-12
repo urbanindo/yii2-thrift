@@ -25,7 +25,7 @@ or add
 
 # Minimum Requirement
 
-- Thrift version 0.9.2.
+- Thrift version 0.10.0.
   To install thrift, check http://thrift.apache.org/download
 - Yii 2.0.0
 
