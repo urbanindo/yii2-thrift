@@ -26,7 +26,7 @@ class Response extends \yii\web\Response
     public $format = self::FORMAT_THRIFT;
 
     /**
-     * @var int
+     * @var integer
      */
     public $bufferSize = 1024;
     
@@ -71,12 +71,18 @@ class Response extends \yii\web\Response
         $this->_processor = $processor;
     }
 
+    /**
+     * @return void
+     */
     protected function sendContent()
     {
         $this->content = $this->getThriftOutput();
         return parent::sendContent();
     }
 
+    /**
+     * @return string
+     */
     private function getThriftOutput()
     {
         ob_start();
