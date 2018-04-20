@@ -24,6 +24,11 @@ class Response extends \yii\web\Response
      * @var string
      */
     public $format = self::FORMAT_THRIFT;
+
+    /**
+     * @var int
+     */
+    public $bufferSize = 1024;
     
     /**
      * Define thrift transport.
@@ -52,7 +57,8 @@ class Response extends \yii\web\Response
         $this->formatters = [
             self::FORMAT_THRIFT => 'UrbanIndo\Yii2\Thrift\ResponseFormatter',
         ];
-        $this->_transport = new TBufferedTransport(new TPhpStream(TPhpStream::MODE_R | TPhpStream::MODE_W));
+        $phpTransport = new TPhpStream(TPhpStream::MODE_R | TPhpStream::MODE_W);
+        $this->_transport = new TBufferedTransport($phpTransport, $this->bufferSize, $this->bufferSize);
         $this->_protocol = new TBinaryProtocol($this->_transport, true, true);
     }
     
@@ -64,17 +70,21 @@ class Response extends \yii\web\Response
     {
         $this->_processor = $processor;
     }
-    
-    /**
-     * Send the result.
-     * @return void
-     */
-    public function send()
+
+    protected function sendContent()
     {
-        //PS: I think this is a bit wrong. But this works, for now.
+        $this->content = $this->getThriftOutput();
+        return parent::sendContent();
+    }
+
+    private function getThriftOutput()
+    {
+        ob_start();
         $this->_transport->open();
         $this->_processor->process($this->_protocol, $this->_protocol);
         $this->_transport->close();
-        parent::send();
+        $output = ob_get_contents();
+        ob_end_clean();
+        return $output;
     }
 }
