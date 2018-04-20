@@ -77,7 +77,7 @@ class Response extends \yii\web\Response
     protected function sendContent()
     {
         $this->content = $this->getThriftOutput();
-        return parent::sendContent();
+        parent::sendContent();
     }
 
     /**
