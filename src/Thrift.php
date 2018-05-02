@@ -8,6 +8,7 @@ namespace UrbanIndo\Yii2\Thrift;
 
 use PHPUnit\Framework\Exception;
 use Thrift\ClassLoader\ThriftClassLoader;
+use yii\base\InvalidCallException;
 
 /**
  * Thrift is the component class of
@@ -106,25 +107,24 @@ class Thrift extends \yii\base\Component
      * Resolve the service.
      * @param \UrbanIndo\Yii2\Thrift\Request $request Request.
      * @return mixed
-     * @throws \yii\base\InvalidCallException Exception.
+     * @throws InvalidCallException Exception.
      */
     public function resolveService(Request $request)
     {
         $pathInfo = $request->getPathInfo();
-        $service = \yii\helpers\ArrayHelper::getValue($this->serviceMap, $pathInfo);
-        if ($service == null) {
-            $service = $pathInfo;
+        $serviceName = \yii\helpers\ArrayHelper::getValue($this->serviceMap, $pathInfo);
+        if ($serviceName == null) {
+            $serviceName = $pathInfo;
         }
-        if (is_string($service)) {
-            $class = $this->serviceNamespace . '\\' . \yii\helpers\Inflector::id2camel($service) . 'Service';
-            $handler = new $class;
-        } else if (is_array($service)) {
-            $handler = \Yii::createObject($service);
+        if (is_string($serviceName)) {
+            $class = $this->serviceNamespace . '\\' . \yii\helpers\Inflector::id2camel($serviceName) . 'Service';
+            $service = new $class();
+        } else if (is_array($serviceName)) {
+            $service = \Yii::createObject($serviceName);
+        } else {
+            throw new InvalidCallException('Cannot find service');
         }
-        /* @var $handler Service */
-        if (!$handler instanceof Service) {
-            throw new \yii\base\InvalidCallException('Service not found');
-        }
+        $handler = new Handler(['service' => $service]);
         $processorClassName = $handler->getProcessorClass();
         $processor = new $processorClassName($handler);
         return $processor;
