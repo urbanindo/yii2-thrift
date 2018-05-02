@@ -107,7 +107,7 @@ class Thrift extends \yii\base\Component
      * Resolve the service.
      * @param \UrbanIndo\Yii2\Thrift\Request $request Request.
      * @return mixed
-     * @throws \yii\base\InvalidCallException Exception.
+     * @throws InvalidCallException Exception.
      */
     public function resolveService(Request $request)
     {

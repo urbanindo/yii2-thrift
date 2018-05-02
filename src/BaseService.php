@@ -27,6 +27,11 @@ abstract class BaseService extends Component implements Service
      */
     const EVENT_AFTER_CALL = 'afterCall';
 
+    /**
+     * @param mixed   $methodName The method called for the service.
+     * @param mixed[] $params     The params.
+     * @return mixed|null
+     */
     public function beforeCall($methodName, $params)
     {
         $event = new ServiceCallEvent($methodName, $params);
@@ -34,6 +39,12 @@ abstract class BaseService extends Component implements Service
         return $event->isValid;
     }
 
+    /**
+     * @param mixed   $methodName The method called for the service.
+     * @param mixed[] $params     The params.
+     * @param mixed   $result     The result from execution.
+     * @return mixed|null
+     */
     public function afterCall($methodName, $params, $result)
     {
         $event = new ServiceCallEvent($methodName, $params);

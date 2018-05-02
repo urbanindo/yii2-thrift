@@ -37,7 +37,13 @@ class ServiceCallEvent extends Event
      */
     public $isValid = true;
 
-    public function __construct($call, $params, array $config = [])
+    /**
+     * ServiceCallEvent constructor.
+     * @param string  $call   The method called for the service.
+     * @param mixed[] $params The params for method call.
+     * @param array   $config Additional config for the component.
+     */
+    public function __construct(string $call, $params, array $config = [])
     {
         $this->call = $call;
         $this->params = $params;
