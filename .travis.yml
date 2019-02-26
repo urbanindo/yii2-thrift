@@ -9,8 +9,16 @@ branches:
     only:
         - master
 
+addons:
+    sonarcloud:
+        organization: "urbanindo"
+        token:
+            secure: "2W/rPck6TIu0yFoEOkyjQdI3whU045Ef0HSegOViklYYIZ64aAugKeCtjWptuJ7CYhxU52yxK09aD2cF5QbXpW3xoyuXbeI61zR6toxrr4cQ9fWnuZ+Uday/78aX0oXtWb3ReGGvUqKr67WpLID0b5+v94DBm0gOjhQce1EMRKzEmvgo56FCSEHsA02QFpzLJ2Rsv0EnIxg5GQ7b+Q6iD8bD/KLuFtQEbtI6buA3KQWek6HR1VDwH7CMeUibNuj0APbbg1gdW3tGvYaJ/3xi4Z6EUtU2rFB6axKHmehe9YKk09CgPratrZlly3QmWigh+NXGz/lYEWu4tZPLT8kUXgy4K1vkrMOLtWQGhYPGoJP8lm8bsrRDn4zaI9ujM/hsDwaf6hm4EMZ8oCk9wRZazKSyo79M0kXB9GvBjQ3i5a514AOmgGuifZCF44ONUIqr/Tj79Ur0ebfAdiqNaIz9NdkkN8flaZkzC/0A2JThTkNPREV8H90K7ViSujSg7dta8/B7mgKEQTl8dtQvA5Ch/bpwYn5BT3ttlKAM1qwn57BOLCm1I0weXTGMKPL3Un8yV7uPoFTRjIlYP3S0lKy00bFEn1Ch6R5Gl7SanBwtsJ+WiqUK+syPyLEv2zh0LQYnsPAFV9XtOHtoyUIV+bJtnMc1E7mq0QKG+IX/pV9DIqI="
 php:
     - 7.0
+    - 7.1
+    - 7.2
+    - 7.3
 
 install:
     - travis_retry composer self-update && composer --version
@@ -19,3 +27,4 @@ install:
 script:
     - ./vendor/bin/phpcs --standard=ruleset.xml src/
     - ./vendor/bin/phpunit --bootstrap tests/bootstrap.php tests
+    - sonar-scanner
